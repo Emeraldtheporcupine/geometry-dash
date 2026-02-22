@@ -120,7 +120,7 @@ function play () {
 }
 tileUtil.onMapLoaded(function (tilemap2) {
     for (let index = 0; index <= tileUtil.tilemapProperty(tilemap2, tileUtil.TilemapProperty.Columns) / 4; index++) {
-        tiles.setTileAt(tiles.getTileLocation(index * 8, 28), assets.tile`myTile2`)
+        tiles.setTileAt(tiles.getTileLocation(index * 4, 28), assets.tile`myTile2`)
     }
     for (let value of tiles.getTilesByType(assets.tile`myTile10`)) {
         mySprite2 = sprites.create(img`
@@ -296,7 +296,7 @@ function reset () {
     scroller.setCameraScrollingMultipliers(0.25, 0)
     characterPlayer = sprites.create(assets.image`player`, SpriteKind.Player)
     characterState = "Cube"
-    tiles.setCurrentTilemap(tileUtil.createSmallMap(tilemap`level1`))
+    tiles.setCurrentTilemap(tileUtil.createSmallMap(tilemap`level0`))
     tiles.placeOnTile(textSprite, tiles.getTileLocation(6, 23))
     tiles.placeOnTile(characterPlayer, tiles.getTileLocation(0, 28))
     list = [sprites.create(assets.image`particle`, SpriteKind.Particle)]
@@ -341,8 +341,8 @@ function reset () {
     }
     scene.centerCameraAt(characterPlayer.x + 40, characterPlayer.y)
     characterPlayer.vx = 0
-    Speed = 100
-    music.play(music.createSong(assets.song`level1`), music.PlaybackMode.LoopingInBackground)
+    Speed = 83.33333
+    music.play(music.createSong(assets.song`Nostalgia0`), music.PlaybackMode.LoopingInBackground)
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.die, function (sprite, otherSprite) {
     otherSprite.setKind(SpriteKind.killed)
@@ -386,7 +386,7 @@ game.onUpdate(function () {
         if (characterState == "Cube") {
             if (controller.A.isPressed() && !(characterPlayer.isHittingTile(CollisionDirection.Top))) {
                 if (characterPlayer.vy == 0) {
-                    characterPlayer.vy = -130
+                    characterPlayer.vy = -100
                 }
             }
         } else if (characterState == "Ship") {
