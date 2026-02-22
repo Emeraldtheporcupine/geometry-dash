@@ -54,6 +54,16 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "ShipPortal0"
     },
+    "image11": {
+        "data": "hwQIAAgAAAAAAAAGAABgaAAAYIgAAGCIAABgiAAAYIgAAGBoAAAABg==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "BluePad"
+    },
+    "image12": {
+        "data": "hwQIAAgAAAAAAAAFAABQVAAAUEQAAFBEAABQRAAAUEQAAFBUAAAABQ==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "YellowPad"
+    },
     "anim2": {
         "namespace": "myAnimations",
         "id": "anim2",
