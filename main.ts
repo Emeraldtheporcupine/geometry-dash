@@ -396,21 +396,17 @@ let menu = false
 deleteThemAll()
 menu = true
 Menu()
-game.onUpdateInterval(100, function () {
-    if (menu == false) {
-        list[0].setVelocity(-5, -20)
-        for (let ParticleList of sprites.allOfKind(SpriteKind.Particle)) {
-            ParticleList.setPosition(characterPlayer.x - 2, characterPlayer.y + 3)
-        }
-    }
-})
 game.onUpdate(function () {
     if (menu == false) {
         characterPlayer.vx = Speed
         if (characterState == "Cube") {
             if (controller.A.isPressed() && !(characterPlayer.isHittingTile(CollisionDirection.Top))) {
                 if (characterPlayer.vy == 0) {
-                    characterPlayer.vy = -157
+                    if (characterPlayer.ay == 400) {
+                        characterPlayer.vy = -157
+                    } else if (characterPlayer.ay == -400) {
+                        characterPlayer.vy = 157
+                    }
                 }
             }
         } else if (characterState == "Ship") {
@@ -437,7 +433,6 @@ game.onUpdate(function () {
         }
         scene.centerCameraAt(characterPlayer.x + 40, characterPlayer.y)
         if (characterState == "Cube") {
-            characterPlayer.ay = 400
             characterAnimations.loopFrames(
             characterPlayer,
             assets.animation`Roll0`,
@@ -466,6 +461,14 @@ game.onUpdate(function () {
         }
         if (characterPlayer.tilemapLocation().column > 222.5) {
             tiles.placeOnTile(characterPlayer, tiles.getTileLocation(23, characterPlayer.tilemapLocation().row))
+        }
+    }
+})
+game.onUpdateInterval(100, function () {
+    if (menu == false) {
+        list[0].setVelocity(-5, -20)
+        for (let ParticleList of sprites.allOfKind(SpriteKind.Particle)) {
+            ParticleList.setPosition(characterPlayer.x - 2, characterPlayer.y + 3)
         }
     }
 })
