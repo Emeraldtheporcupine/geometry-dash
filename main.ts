@@ -9,6 +9,8 @@ namespace SpriteKind {
     export const COIN = SpriteKind.create()
     export const Option = SpriteKind.create()
     export const CubeConvert = SpriteKind.create()
+    export const Bpad = SpriteKind.create()
+    export const BpadFlipped = SpriteKind.create()
 }
 controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
     if (menu == false) {
@@ -110,6 +112,10 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.boing, function (sprite, otherSp
         })
     }
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Bpad, function (sprite, otherSprite) {
+    sprite.ay = -400
+    sprite.vy = -150
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.ShipConvert, function (sprite, otherSprite) {
     otherSprite.setKind(SpriteKind.converted)
     characterState = "Ship"
@@ -119,8 +125,15 @@ function play () {
     reset()
 }
 tileUtil.onMapLoaded(function (tilemap2) {
-    for (let index = 0; index <= tileUtil.tilemapProperty(tilemap2, tileUtil.TilemapProperty.Columns) / 4; index++) {
-        tiles.setTileAt(tiles.getTileLocation(index * 4, 28), assets.tile`myTile2`)
+    for (let value of tiles.getTilesByType(assets.tile`myTile15`)) {
+        mySprite2 = sprites.create(assets.image`BluePad0`, SpriteKind.Bpad)
+        tiles.placeOnTile(mySprite2, value)
+        tiles.setTileAt(value, assets.tile`transparency8`)
+    }
+    for (let value of tiles.getTilesByType(assets.tile`myTile16`)) {
+        mySprite2 = sprites.create(assets.image`BluePadFlipped`, SpriteKind.BpadFlipped)
+        tiles.placeOnTile(mySprite2, value)
+        tiles.setTileAt(value, assets.tile`transparency8`)
     }
     for (let value of tiles.getTilesByType(assets.tile`myTile10`)) {
         mySprite2 = sprites.create(img`
@@ -146,6 +159,9 @@ tileUtil.onMapLoaded(function (tilemap2) {
         true
         )
         tiles.setTileAt(value, assets.tile`transparency8`)
+    }
+    for (let index = 0; index <= tileUtil.tilemapProperty(tilemap2, tileUtil.TilemapProperty.Columns) / 4; index++) {
+        tiles.setTileAt(tiles.getTileLocation(index * 4, 28), assets.tile`myTile2`)
     }
 })
 function Menu () {
@@ -283,6 +299,10 @@ function Menu () {
     LevelSelect = sprites.create(assets.image`LevelFacto`, SpriteKind.Option)
     LevelSelect.setPosition(80, 50)
 }
+sprites.onOverlap(SpriteKind.Player, SpriteKind.BpadFlipped, function (sprite, otherSprite) {
+    sprite.ay = 400
+    sprite.vy = 150
+})
 function reset () {
     deleteThemAll()
     textSprite = textsprite.create("Attempt" + " " + attempts, 0, 1)

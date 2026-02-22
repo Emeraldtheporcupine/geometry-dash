@@ -64,6 +64,16 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "YellowPad"
     },
+    "image14": {
+        "data": "hwQIAAgAAAAAAAAGAABgaAAAYIgAAGCIAABgiAAAYIgAAGBoAAAABg==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "BluePad0"
+    },
+    "image13": {
+        "data": "hwQIAAgAAABgAAAAhgYAAIgGAACIBgAAiAYAAIgGAACGBgAAYAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "BluePadFlipped"
+    },
     "anim2": {
         "namespace": "myAnimations",
         "id": "anim2",
