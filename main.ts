@@ -396,6 +396,14 @@ let menu = false
 deleteThemAll()
 menu = true
 Menu()
+game.onUpdateInterval(100, function () {
+    if (menu == false) {
+        list[0].setVelocity(-5, -20)
+        for (let ParticleList of sprites.allOfKind(SpriteKind.Particle)) {
+            ParticleList.setPosition(characterPlayer.x - 2, characterPlayer.y + 3)
+        }
+    }
+})
 game.onUpdate(function () {
     if (menu == false) {
         characterPlayer.vx = Speed
@@ -463,12 +471,14 @@ game.onUpdate(function () {
             tiles.placeOnTile(characterPlayer, tiles.getTileLocation(23, characterPlayer.tilemapLocation().row))
         }
     }
-})
-game.onUpdateInterval(100, function () {
-    if (menu == false) {
-        list[0].setVelocity(-5, -20)
-        for (let ParticleList of sprites.allOfKind(SpriteKind.Particle)) {
-            ParticleList.setPosition(characterPlayer.x - 2, characterPlayer.y + 3)
+    for (let value of sprites.allOfKind(SpriteKind.Bpad)) {
+        if (value.x < scene.cameraProperty(CameraProperty.X) - 80) {
+            sprites.destroy(value)
+        }
+    }
+    for (let value of sprites.allOfKind(SpriteKind.BpadFlipped)) {
+        if (value.x < scene.cameraProperty(CameraProperty.X) - 80) {
+            sprites.destroy(value)
         }
     }
 })
