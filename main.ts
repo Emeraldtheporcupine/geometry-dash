@@ -351,8 +351,12 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.die, function (sprite, otherSpri
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (menu == true) {
         music.stopAllSounds()
-        menu = false
-        play()
+        color.startFadeFromCurrent(color.Black, 500)
+        timer.after(1000, function () {
+            color.startFadeFromCurrent(color.Arcade, 500)
+            menu = false
+            play()
+        })
     }
 })
 let Speed = 0
@@ -386,7 +390,7 @@ game.onUpdate(function () {
         if (characterState == "Cube") {
             if (controller.A.isPressed() && !(characterPlayer.isHittingTile(CollisionDirection.Top))) {
                 if (characterPlayer.vy == 0) {
-                    characterPlayer.vy = -100
+                    characterPlayer.vy = -157
                 }
             }
         } else if (characterState == "Ship") {
@@ -439,6 +443,9 @@ game.onUpdate(function () {
             100,
             characterAnimations.rule(Predicate.MovingDown)
             )
+        }
+        if (characterPlayer.tilemapLocation().column > 222.5) {
+            tiles.placeOnTile(characterPlayer, tiles.getTileLocation(23, characterPlayer.tilemapLocation().row))
         }
     }
 })
