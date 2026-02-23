@@ -306,6 +306,14 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.BpadFlipped, function (sprite, o
     sprite.ay = 400
     sprite.vy = 150
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.COIN, function (sprite, otherSprite) {
+    otherSprite.setKind(SpriteKind.killed)
+    music.play(music.melodyPlayable(music.baDing), music.PlaybackMode.InBackground)
+    otherSprite.setFlag(SpriteFlag.Ghost, true)
+    otherSprite.setFlag(SpriteFlag.AutoDestroy, true)
+    otherSprite.vy = -100
+    otherSprite.ay = 400
+})
 function reset () {
     deleteThemAll()
     textSprite = textsprite.create("Attempt" + " " + attempts, 0, 1)
