@@ -47,10 +47,10 @@ function death () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `, SpriteKind.Player)
+        `, SpriteKind.killed)
     mySprite.setPosition(characterPlayer.x + 2, characterPlayer.y + 2)
-    music.play(music.melodyPlayable(music.zapped), music.PlaybackMode.InBackground)
     sprites.destroy(characterPlayer)
+    music.play(music.melodyPlayable(music.zapped), music.PlaybackMode.InBackground)
     animation.runImageAnimation(
     mySprite,
     assets.animation`myAnim`,
@@ -78,6 +78,9 @@ function deleteThemAll () {
     sprites.destroyAllSpritesOfKind(SpriteKind.COIN)
     sprites.destroyAllSpritesOfKind(SpriteKind.Text)
     sprites.destroyAllSpritesOfKind(SpriteKind.Option)
+    sprites.destroyAllSpritesOfKind(SpriteKind.CubeConvert)
+    sprites.destroyAllSpritesOfKind(SpriteKind.Bpad)
+    sprites.destroyAllSpritesOfKind(SpriteKind.BpadFlipped)
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.boing, function (sprite, otherSprite) {
     if (controller.A.isPressed()) {
@@ -126,7 +129,7 @@ function play () {
 }
 tileUtil.onMapLoaded(function (tilemap2) {
     for (let value of tiles.getTilesByType(assets.tile`myTile15`)) {
-        mySprite2 = sprites.create(assets.image`BluePad0`, SpriteKind.Bpad)
+        mySprite2 = sprites.create(assets.image`BluePad`, SpriteKind.Bpad)
         tiles.placeOnTile(mySprite2, value)
         tiles.setTileAt(value, assets.tile`transparency8`)
     }
@@ -424,7 +427,13 @@ game.onUpdate(function () {
                 characterPlayer.ay = 200
             }
         }
-        if (characterPlayer.tilemapLocation().column == 32) {
+        if (characterPlayer.tilemapLocation().column == 0) {
+            color.setColor(3, color.parseColorString("#f9f9f9"))
+            color.setColor(10, color.parseColorString("#303030"))
+            color.setColor(11, color.parseColorString("#1c1c1c"))
+            color.setColor(12, color.parseColorString("#4h4h4h"))
+            color.setColor(13, color.parseColorString("#383838"), 100)
+        } else if (characterPlayer.tilemapLocation().column == 32) {
             color.setColor(3, color.parseColorString("#7CFF4D"))
             color.setColor(10, color.parseColorString("#47ffaf"))
             color.setColor(11, color.parseColorString("#1FD63D"))
